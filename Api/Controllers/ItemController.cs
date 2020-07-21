@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Update;
 using Services.Dtos;
 using Services.Services;
 using Services.Services.Contacts;
@@ -81,6 +82,48 @@ namespace Api.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPost("edit")]
+        public async Task<ActionResult> EditItem([FromBody] ItemModel editItemModel)
+        {
+            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
+
+            if (claim == null)
+            {
+                return BadRequest();
+            }
+
+            var itemDto = new ItemDto
+            {
+                Name = editItemModel.Name,
+                IsDone = editItemModel.IsDone,
+                Id = editItemModel.Id
+            };
+
+            await _itemService.EditItem(itemDto, claim.Value);
+            return Ok();
+        }
+
+        [HttpPost("delete")]
+        public async Task<ActionResult> IsDeleted([FromBody] ItemModel isDeletedModel) {
+            
+            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
+
+            if (claim == null)
+            {
+                return BadRequest();
+            }
+
+            var itemDto = new ItemDto
+            {
+                Name = isDeletedModel.Name,
+                Id = isDeletedModel.Id,
+                isDeleted = true
+            };
+
+            await _itemService.IsDeleted(itemDto, claim.Value);
+            return Ok();
         }
     }
 }

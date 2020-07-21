@@ -12,6 +12,8 @@ namespace Services.Dtos
 
         public Boolean IsDone { get; set; }
 
+        public Boolean isDeleted { get; set; }
+
         public int? ParentItemId { get; set; }
     }
 }

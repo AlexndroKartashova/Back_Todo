@@ -10,6 +10,12 @@ namespace Data.Repositories.Contacts
     {
         Task<IEnumerable<Item>> GetList(String userId, int? parentId);
 
+        Task<Item> Get(String userId, int id);
+
         Task Add(Item item);
+
+        Task EditItem(Item item);
+
+        Task IsDeleted(Item item);
     }
 }

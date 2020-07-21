@@ -11,5 +11,9 @@ namespace Services.Services.Contacts
         Task<IEnumerable<ItemDto>> GetList(String userId, int? parentItemId = null);
 
         Task Add(ItemDto itemDto, string userId);
+
+        Task EditItem(ItemDto itemDto, string userId);
+
+        Task IsDeleted(ItemDto itemDto, string userId);
     }
 }

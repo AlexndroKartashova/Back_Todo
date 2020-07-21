@@ -15,6 +15,8 @@ namespace Models
 
         public String UserId { get; set; }
 
+        public Boolean IsDeleted { get; set; }
+
         public virtual Item ParentItem { get; set; }
 
         public virtual IdentityUser User { get; set; }

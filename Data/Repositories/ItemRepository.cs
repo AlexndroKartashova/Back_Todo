@@ -1,4 +1,5 @@
 ﻿using Data.Repositories.Contacts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
@@ -24,11 +25,29 @@ namespace Data.Repositories
             await _applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Item>> GetList(string userId, int? parentItemId)
+        public async Task EditItem(Item item)
+        {
+            _applicationDbContext.Set<Item>().Update(item);
+            await _applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Item> Get(string userId, int id)
         {
             return await _applicationDbContext.Set<Item>()
-                .Where(x => x.UserId.Equals(userId) && x.ParentItemId == parentItemId)
+                .FirstOrDefaultAsync(x => x.UserId.Equals(userId) && x.Id == id && !x.IsDeleted);
+        }
+
+        public async Task<IEnumerable<Item>> GetList(string userId, int? parentItemId)
+        {
+              return await _applicationDbContext.Set<Item>()
+                .Where(x => x.UserId.Equals(userId) && x.ParentItemId == parentItemId && !x.IsDeleted)
                 .ToListAsync();
+        }
+
+        public async Task IsDeleted(Item item)
+        {
+            _applicationDbContext.Set<Item>().Update(item);
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 }

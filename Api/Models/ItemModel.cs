@@ -12,5 +12,7 @@ namespace Api.Models
         public String Name { get; set; }
 
         public Boolean IsDone { get; set; }
+
+        public Boolean IsDeleted { get; set; }
     }
 }

@@ -37,5 +37,34 @@ namespace Services.Services
 
             return items.Select(item => new ItemDto { Id = item.Id, Name = item.Name, IsDone = item.IsDone });
         }
+
+        public async Task EditItem(ItemDto itemDto, string userId)
+        {
+           var item = await _itemRepository.Get(userId, itemDto.Id);
+
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            item.Name = itemDto.Name;
+            item.IsDone = itemDto.IsDone;
+           
+            await _itemRepository.EditItem(item);
+        }
+
+        public async Task IsDeleted(ItemDto itemDto, string userId)
+        {
+            var item = await _itemRepository.Get(userId, itemDto.Id);
+
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            item.IsDeleted = true;
+
+            await _itemRepository.IsDeleted(item);
+        }
     }
 }
