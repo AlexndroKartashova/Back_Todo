@@ -53,9 +53,9 @@ namespace Services.Services
             await _itemRepository.EditItem(item);
         }
 
-        public async Task IsDeleted(ItemDto itemDto, string userId)
+        public async Task DeleteItem(int id, string userId)
         {
-            var item = await _itemRepository.Get(userId, itemDto.Id);
+            var item = await _itemRepository.Get(userId, id);
 
             if (item == null)
             {
@@ -64,7 +64,7 @@ namespace Services.Services
 
             item.IsDeleted = true;
 
-            await _itemRepository.IsDeleted(item);
+            await _itemRepository.EditItem(item);
         }
     }
 }

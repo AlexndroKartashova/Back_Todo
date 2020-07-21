@@ -14,6 +14,6 @@ namespace Services.Services.Contacts
 
         Task EditItem(ItemDto itemDto, string userId);
 
-        Task IsDeleted(ItemDto itemDto, string userId);
+        Task DeleteItem(int id, string userId);
     }
 }

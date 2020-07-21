@@ -16,6 +16,5 @@ namespace Data.Repositories.Contacts
 
         Task EditItem(Item item);
 
-        Task IsDeleted(Item item);
     }
 }

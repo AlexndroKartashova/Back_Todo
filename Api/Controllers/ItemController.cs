@@ -105,8 +105,8 @@ namespace Api.Controllers
             return Ok();
         }
 
-        [HttpPost("delete")]
-        public async Task<ActionResult> IsDeleted([FromBody] ItemModel isDeletedModel) {
+        [HttpGet("{id}/delete")]
+        public async Task<ActionResult> DeleteItem(int id) {
             
             var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
 
@@ -115,14 +115,14 @@ namespace Api.Controllers
                 return BadRequest();
             }
 
-            var itemDto = new ItemDto
+            /*var itemDto = new ItemDto
             {
-                Name = isDeletedModel.Name,
+                //Name = isDeletedModel.Name,
                 Id = isDeletedModel.Id,
                 isDeleted = true
-            };
+            };*/
 
-            await _itemService.IsDeleted(itemDto, claim.Value);
+            await _itemService.DeleteItem(id, claim.Value);
             return Ok();
         }
     }

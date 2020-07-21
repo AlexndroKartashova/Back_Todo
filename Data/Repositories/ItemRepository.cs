@@ -44,7 +44,7 @@ namespace Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task IsDeleted(Item item)
+        public async Task DeleteItem(Item item)
         {
             _applicationDbContext.Set<Item>().Update(item);
             await _applicationDbContext.SaveChangesAsync();
