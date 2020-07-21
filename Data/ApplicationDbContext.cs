@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Data.Mapping;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -15,7 +16,7 @@ namespace Data
         {
             base.OnModelCreating(builder);
 
-            //builder.ApplyConfiguration(new ItemMap());
+            builder.ApplyConfiguration(new ItemMap());
         }
         
     }

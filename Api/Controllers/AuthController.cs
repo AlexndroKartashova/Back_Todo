@@ -112,7 +112,8 @@ namespace Api.Controllers
                                     new Claim("email", user.Email),
                                     new Claim("id", user.Id)
                                 };
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
         }
 

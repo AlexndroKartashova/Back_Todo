@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Data.Repositories.Contacts;
+using Data.Repositories;
 
 namespace Data
 {
@@ -14,11 +16,11 @@ namespace Data
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity);
+
             services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false; })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
         }
     }
 }
