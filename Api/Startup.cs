@@ -43,11 +43,6 @@ namespace Api
                 });
             });
 
-            services.AddCors(corsOptions => corsOptions.AddPolicy("Cors", CorsPolicy => CorsPolicy
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
-
             services.AddHttpContextAccessor();
 
             Services.ServiceConfiguration.Configure(services, Configuration);
@@ -109,7 +104,14 @@ namespace Api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors("Cors");
+            app.UseHadleExceptionMiddleware();
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowAnyOrigin();
+            });
 
             app.UseEndpoints(endpoints =>
             {

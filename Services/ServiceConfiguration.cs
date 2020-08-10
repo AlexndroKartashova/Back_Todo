@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Models;
 using Services.Services;
-using Services.Services.Contacts;
+using Services.Services.Contracts;
 using System;
 
 namespace Services
@@ -13,6 +16,7 @@ namespace Services
             Data.ServiceConfiguration.Configure(services, configuration);
 
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

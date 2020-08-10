@@ -5,6 +5,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200806074016_extend-user.cs" />
+    <Compile Remove="Migrations\20200806074016_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806074820_extend-user.cs" />
+    <Compile Remove="Migrations\20200806074820_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806080023_extend-user.cs" />
+    <Compile Remove="Migrations\20200806080023_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806080940_extend-user.cs" />
+    <Compile Remove="Migrations\20200806080940_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806082156_extend-user.cs" />
+    <Compile Remove="Migrations\20200806082156_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806083107_extend-user.cs" />
+    <Compile Remove="Migrations\20200806083107_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806083154_extend-user.cs" />
+    <Compile Remove="Migrations\20200806083154_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806083306_extend-user.cs" />
+    <Compile Remove="Migrations\20200806083306_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806083556_extend-user.cs" />
+    <Compile Remove="Migrations\20200806083556_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806083946_extend-user.cs" />
+    <Compile Remove="Migrations\20200806083946_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806084030_extend-user.cs" />
+    <Compile Remove="Migrations\20200806084030_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806084232_extend-user.cs" />
+    <Compile Remove="Migrations\20200806084232_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200806085654_extend-user.cs" />
+    <Compile Remove="Migrations\20200806085654_extend-user.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
@@ -17,10 +46,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapping\" />
   </ItemGroup>
 
 </Project>

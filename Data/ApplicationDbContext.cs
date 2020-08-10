@@ -1,11 +1,12 @@
 ﻿using Data.Mapping;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using System;
 
 namespace Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,6 +18,7 @@ namespace Data
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new ItemMap());
+            builder.ApplyConfiguration(new UserMap());
         }
         
     }

@@ -14,23 +14,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Models;
+using Services.Dtos;
+using Services.Services;
+using Services.Services.Contracts;
 
 namespace Api.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    [EnableCors("Cors")]
     [AllowAnonymous]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IAuthService _authService;
 
-        public AuthController(SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager)
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _authService = authService;
         }
 
         [HttpPost("login")]
@@ -38,58 +38,56 @@ namespace Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(LoginModel.Email);
-                if (user != null)
+                var loginDto = new LoginDto
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, LoginModel.Password, LoginModel.RememberMe, lockoutOnFailure: false);
-                    if (result.Succeeded)
-                    {
-                        var response = GenerateToken(user);
+                    Email = LoginModel.Email,
+                    Password = LoginModel.Password
+                };
 
-                        return Ok(response);
-                    }
+                if (await _authService.Login(loginDto))
+                {
+                    var user = await _authService.GetUserByEmail(loginDto.Email);
+                    var response =  GenerateToken(user);
+                    return Ok(response);
                 }
             }
-
             return Unauthorized();
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel RegisterModel)
         {
+
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var registerDto = new RegisterDto
                 {
-                    UserName = RegisterModel.Email,
-                    Email = RegisterModel.Email
+                    Email = RegisterModel.Email,
+                    Password = RegisterModel.Password,
+                    ConfirmPassword = RegisterModel.ConfirmPassword
                 };
 
-                var result = await _userManager.CreateAsync(user, RegisterModel.Password);
-                if (result.Succeeded)
+                if (await _authService.Register(registerDto))
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    var user = await _authService.GetUserByEmail(registerDto.Email);
                     var response = GenerateToken(user);
                     return Ok(response);
-
                 }
             }
-
             return Unauthorized();
         }
 
-        private object GenerateToken(IdentityUser user)
+        private object GenerateToken(UserDto user)
         {
             {
                 var identity = GetIdentity(user);
                 var now = DateTime.UtcNow;
                 var expiredDate = now.Add(TimeSpan.FromMinutes(TokenApp.LIFETIME));
 
-                //create jwt-token
                 var jwt = new JwtSecurityToken(
                     issuer: TokenApp.ISSUER,
                     audience: TokenApp.AUDIENCE,
-                    notBefore: now, //time now for activated serteficats
+                    notBefore: now,
                     claims: identity.Claims,
                     expires: expiredDate,
                     signingCredentials: new SigningCredentials(TokenApp.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
@@ -105,24 +103,17 @@ namespace Api.Controllers
             }
         }
 
-        private ClaimsIdentity GetIdentity(IdentityUser user)
+        private ClaimsIdentity GetIdentity(UserDto user)
         {
             var claims = new List<Claim>
-                                {
-                                    new Claim("email", user.Email),
-                                    new Claim("id", user.Id)
-                                };
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-            return claimsIdentity;
-        }
+            {
+                new Claim("email", user.UserEmail),
+                new Claim("id", user.UserId)
+            };
 
-        [Authorize]
-        [HttpGet("test")]
-        //[HttpPost("add")]
-        public ActionResult Test()
-        {
-            return Ok("Good request");
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+            ClaimsIdentity.DefaultRoleClaimType);
+            return claimsIdentity;
         }
     }
 }

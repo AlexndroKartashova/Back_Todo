@@ -15,6 +15,5 @@ namespace Data.Repositories.Contacts
         Task Add(Item item);
 
         Task EditItem(Item item);
-
     }
 }

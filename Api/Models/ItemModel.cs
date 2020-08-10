@@ -14,5 +14,11 @@ namespace Api.Models
         public Boolean IsDone { get; set; }
 
         public Boolean IsDeleted { get; set; }
+
+        public int? ParentItemId { get; set; }
+
+        public int ItemCount { get; set; }
+
+        public int DoneItemCount { get; set; }
     }
 }

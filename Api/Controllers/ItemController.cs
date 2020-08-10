@@ -11,13 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Update;
 using Services.Dtos;
 using Services.Services;
-using Services.Services.Contacts;
+using Services.Services.Contracts;
 
 namespace Api.Controllers
 {
-    [Route("api/item")]
+    [Route("api/todo")]
     [ApiController]
-    [EnableCors("Cors")]
     [Authorize]
     public class ItemController : ControllerBase
     {
@@ -29,46 +28,68 @@ namespace Api.Controllers
             _itemService = itemService;
         }
 
-        [HttpGet((""))]
-        public async Task<ActionResult> GetCategories()
+        private string GetUserId()
         {
             var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
 
             if (claim == null)
             {
-                return BadRequest();
+                throw new ArgumentNullException(nameof(claim));
             }
 
-            var itemDtos = await _itemService.GetList(claim.Value);
-            var itemModels = itemDtos.Select(item => new ItemModel { Id = item.Id, IsDone = item.IsDone, Name = item.Name });
+            return claim.Value;
+        }
+   
+
+        [HttpGet((""))]
+        public async Task<ActionResult> GetCategories()
+        {
+            var itemDtos = await _itemService.GetList(GetUserId());
+            var itemModels = itemDtos.Select(item => new ItemModel { 
+                Id = item.Id, 
+                IsDone = item.IsDone, 
+                Name = item.Name, 
+                ParentItemId = item.ParentItemId,
+                ItemCount = item.ItemCount,
+                DoneItemCount = item.DoneItemCount
+            });
             return Ok(itemModels);
         }
 
         [HttpGet(("{parentItemId}"))]
         public async Task<ActionResult> GetCategories(int parentItemId)
         {
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
-
-            if (claim == null)
-            {
-                return BadRequest();
-            }
-
-            var itemDtos = await _itemService.GetList(claim.Value, parentItemId);
-            var itemModels = itemDtos.Select(item => new ItemModel { Id = item.Id, IsDone = item.IsDone, Name = item.Name });
+            var itemDtos = await _itemService.GetList(GetUserId(), parentItemId);
+            var itemModels = itemDtos.Select(item => new ItemModel { 
+                Id = item.Id, 
+                IsDone = item.IsDone, 
+                Name = item.Name, 
+                ParentItemId = item.ParentItemId,
+                ItemCount = item.ItemCount,
+                DoneItemCount = item.DoneItemCount
+            });
             return Ok(itemModels);
         }
-    
+
+        [HttpGet("id/{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+            var itemDto = await _itemService.Get(GetUserId(), id);
+            var itemModel = new ItemModel
+            {
+                Id = itemDto.Id,
+                ParentItemId = itemDto.ParentItemId,
+                Name = itemDto.Name,
+                IsDeleted = itemDto.IsDeleted,
+                IsDone = itemDto.IsDone
+            };
+
+            return Ok(itemModel);
+        }
+
         [HttpPost("add")]
         public async Task<ActionResult> Add([FromBody] AddItemModel addItemModel)
         {
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
-
-            if (claim == null)
-            {
-                return BadRequest();
-            }
-
             if (ModelState.IsValid)
             {
                 var itemDto = new ItemDto
@@ -77,7 +98,7 @@ namespace Api.Controllers
                     ParentItemId = addItemModel.ParentItemId
                 };
 
-                await _itemService.Add(itemDto, claim.Value);
+                await _itemService.Add(itemDto, GetUserId());
                 return Ok();
             }
 
@@ -87,13 +108,6 @@ namespace Api.Controllers
         [HttpPost("edit")]
         public async Task<ActionResult> EditItem([FromBody] ItemModel editItemModel)
         {
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
-
-            if (claim == null)
-            {
-                return BadRequest();
-            }
-
             var itemDto = new ItemDto
             {
                 Name = editItemModel.Name,
@@ -101,29 +115,28 @@ namespace Api.Controllers
                 Id = editItemModel.Id
             };
 
-            await _itemService.EditItem(itemDto, claim.Value);
+            await _itemService.EditItem(itemDto, GetUserId());
             return Ok();
         }
 
         [HttpGet("{id}/delete")]
-        public async Task<ActionResult> DeleteItem(int id) {
-            
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
+        public async Task<ActionResult> DeleteItem(int id)
+        {
+            await _itemService.DeleteItem(id, GetUserId());
 
-            if (claim == null)
-            {
-                return BadRequest();
-            }
-
-            /*var itemDto = new ItemDto
-            {
-                //Name = isDeletedModel.Name,
-                Id = isDeletedModel.Id,
-                isDeleted = true
-            };*/
-
-            await _itemService.DeleteItem(id, claim.Value);
             return Ok();
+        }
+
+        [HttpPost("chenge_status")]
+        public async Task ChangeStatus([FromBody] ItemModel changeStatus)
+        {
+            var itemDto = new ItemDto
+            {
+                IsDone = changeStatus.IsDone,
+                Id = changeStatus.Id
+            };
+
+            await _itemService.ChangeStatus(itemDto, GetUserId());
         }
     }
 }

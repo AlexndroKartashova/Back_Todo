@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using Data.Repositories.Contacts;
 using Data.Repositories;
+using Models;
 
 namespace Data
 {
@@ -17,7 +18,7 @@ namespace Data
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => { options.SignIn.RequireConfirmedAccount = false; })
+            services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedAccount = false; })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IItemRepository, ItemRepository>();

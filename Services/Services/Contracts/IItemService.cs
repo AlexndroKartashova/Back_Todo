@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services.Contacts
+namespace Services.Services.Contracts
 {
     public interface IItemService
     {
@@ -14,6 +14,10 @@ namespace Services.Services.Contacts
 
         Task EditItem(ItemDto itemDto, string userId);
 
+        Task ChangeStatus(ItemDto itemDto, string userId);
+
         Task DeleteItem(int id, string userId);
+
+        Task<ItemDto> Get(string value, int id);
     }
 }

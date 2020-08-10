@@ -8,7 +8,7 @@ C:\Users\Alexandra\source\repos\Back_live\Services\bin\Debug\netcoreapp3.1\Model
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.csprojAssemblyReference.cache
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfoInputs.cache
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfo.cs
-C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompileInputs.cache
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.dll
 C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.pdb
+C:\Users\Alexandra\source\repos\Back_live\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompileInputs.cache
