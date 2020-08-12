@@ -22,6 +22,7 @@ namespace Data
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IItemRepository, ItemRepository>();
+
         }
     }
 }

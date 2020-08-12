@@ -107,8 +107,8 @@ namespace Api.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim("email", user.UserEmail),
-                new Claim("id", user.UserId)
+                new Claim("email", user.Email),
+                new Claim("id", user.Id)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

@@ -40,8 +40,8 @@ namespace Services.Services
 
             var userDto = new UserDto
             {
-                UserEmail = user.Email,
-                UserId = user.Id,
+                Email = user.Email,
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Birthday = user.Birthday
