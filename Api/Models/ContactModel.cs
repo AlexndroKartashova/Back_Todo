@@ -5,13 +5,20 @@ using System.Threading.Tasks;
 
 namespace Api.Models
 {
-    public class UserModel
+    public class ContactModel
     {
-        public String Id { get; set; }
+        public int Id { get; set; }
+
+        public String Name { get; set; }
+
+        public String UserId { get; set; }
+
         public String Email { get; set; }
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public DateTime? Birthday { get; set; }
+
         public String PhoneNumber { get; set; }
+
+        public Boolean IsDeleted { get; set; }
+
+
     }
 }

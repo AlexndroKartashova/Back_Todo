@@ -19,6 +19,7 @@ namespace Data
 
             builder.ApplyConfiguration(new ItemMap());
             builder.ApplyConfiguration(new UserMap());
+            builder.ApplyConfiguration(new ContactMap());
         }
         
     }

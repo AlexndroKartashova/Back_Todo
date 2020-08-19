@@ -14,28 +14,16 @@ namespace Api.Controllers
     [Route("api/profile")]
     [ApiController]
     [Authorize]
-    public class UserController : ControllerBase
+    public class UserController : CustomController
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService
+            )
         {
             _userService = userService;
         }
 
-        private string GetUserId()
-        {
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
-
-            if (claim == null)
-            {
-                throw new ArgumentNullException(nameof(claim));
-            }
-
-            return claim.Value;
-        }
-
-        
         [HttpGet("")]
         public async Task<ActionResult> GetUserById()
         {
@@ -46,7 +34,8 @@ namespace Api.Controllers
                 Email = userDto.Email,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                Birthday = userDto.Birthday
+                Birthday = userDto.Birthday,
+                PhoneNumber = userDto.PhoneNumber
             };
 
             return Ok(userModel);
@@ -62,7 +51,8 @@ namespace Api.Controllers
                 FirstName = editUserModel.FirstName,
                 LastName = editUserModel.LastName,
                 Birthday = editUserModel.Birthday,
-                Id = editUserModel.Id
+                Id = editUserModel.Id,
+                PhoneNumber = editUserModel.PhoneNumber
             };
 
             await _userService.EditUser(userDto, GetUserId());

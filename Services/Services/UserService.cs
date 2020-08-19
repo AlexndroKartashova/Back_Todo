@@ -32,7 +32,7 @@ namespace Services.Services
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
             user.Birthday = userDto.Birthday;
-            //user.Email = userDto.Email;
+            user.PhoneNumber = userDto.PhoneNumber;
 
             await _userManager.UpdateAsync(user);
         }
@@ -54,7 +54,8 @@ namespace Services.Services
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Birthday = user.Birthday
+                Birthday = user.Birthday,
+                PhoneNumber = user.PhoneNumber
             };
         }
 

@@ -18,28 +18,16 @@ namespace Api.Controllers
     [Route("api/todo")]
     [ApiController]
     [Authorize]
-    public class ItemController : ControllerBase
+    public class ItemController : CustomController
     {
 
         private readonly IItemService _itemService;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService
+            )
         {
             _itemService = itemService;
         }
-
-        private string GetUserId()
-        {
-            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
-
-            if (claim == null)
-            {
-                throw new ArgumentNullException(nameof(claim));
-            }
-
-            return claim.Value;
-        }
-   
 
         [HttpGet((""))]
         public async Task<ActionResult> GetCategories()
@@ -138,5 +126,17 @@ namespace Api.Controllers
 
             await _itemService.ChangeStatus(itemDto, GetUserId());
         }
+
+        /*private string GetUserId()
+        {
+            var claim = User.Claims.FirstOrDefault(x => x.Type.Equals("id"));
+
+            if (claim == null)
+            {
+                throw new ArgumentNullException(nameof(claim));
+            }
+
+            return claim.Value;
+        }*/
     }
 }

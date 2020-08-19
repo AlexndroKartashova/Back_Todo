@@ -31,9 +31,26 @@
     <Compile Remove="Migrations\20200806084232_extend-user.Designer.cs" />
     <Compile Remove="Migrations\20200806085654_extend-user.cs" />
     <Compile Remove="Migrations\20200806085654_extend-user.Designer.cs" />
+    <Compile Remove="Migrations\20200818102336_contact.cs" />
+    <Compile Remove="Migrations\20200818102336_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818103009_contact.cs" />
+    <Compile Remove="Migrations\20200818103009_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818103330_contact.cs" />
+    <Compile Remove="Migrations\20200818103330_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818103752_contact.cs" />
+    <Compile Remove="Migrations\20200818103752_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818104100_contact.cs" />
+    <Compile Remove="Migrations\20200818104100_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818104831_contact.cs" />
+    <Compile Remove="Migrations\20200818104831_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818105417_contact.cs" />
+    <Compile Remove="Migrations\20200818105417_contact.Designer.cs" />
+    <Compile Remove="Migrations\20200818105848_contact.cs" />
+    <Compile Remove="Migrations\20200818105848_contact.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />

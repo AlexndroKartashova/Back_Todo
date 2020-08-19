@@ -8,6 +8,7 @@ using System.Text;
 using Data.Repositories.Contacts;
 using Data.Repositories;
 using Models;
+using Data.Repositories.Contracts;
 
 namespace Data
 {
@@ -18,10 +19,16 @@ namespace Data
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedAccount = false; })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //services.AddIdentity<User, IdentityRole>(options => { options.SignIn.RequireConfirmedAccount = false; })
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultUI();
+
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
 
         }
     }

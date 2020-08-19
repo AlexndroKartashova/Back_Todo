@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 
 namespace Models
 {
@@ -19,6 +18,6 @@ namespace Models
 
         public virtual Item ParentItem { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public virtual User User { get; set; }
     }
 }
