@@ -1,9 +1,0 @@
-C:\Users\Alexandra\source\repos\Back_live\Models\bin\Debug\netcoreapp3.1\Models.deps.json
-C:\Users\Alexandra\source\repos\Back_live\Models\bin\Debug\netcoreapp3.1\Models.dll
-C:\Users\Alexandra\source\repos\Back_live\Models\bin\Debug\netcoreapp3.1\Models.pdb
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfoInputs.cache
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfo.cs
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.dll
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.pdb
-C:\Users\Alexandra\source\repos\Back_live\Models\obj\Debug\netcoreapp3.1\Models.csprojAssemblyReference.cache
